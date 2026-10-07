@@ -3,56 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mój Ukryty Multistream</title>
+    <title>AhA</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #111;
-            font-family: sans-serif;
-            color: white;
             display: flex;
-            flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
-        #panel {
-            background-color: #222;
-            padding: 10px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-        }
-        input {
-            background: #333;
-            border: 1px solid #444;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        button {
-            background: #9146FF;
-            border: none;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background: #772CE8;
-        }
-        #streams-container {
-            display: flex;
-            flex: 1;
+        .stream-container {
+            flex: 3; 
             height: 100%;
-        }
-        .stream-box {
-            flex: 1;
-            height: 100%;
-            border: 2px solid #222;
             box-sizing: border-box;
+            border-right: 2px solid #222;
+        }
+        .chat-container {
+            flex: 1; 
+            height: 100%;
+            background-color: #18181b;
         }
         iframe {
             width: 100%;
@@ -63,40 +33,18 @@
 </head>
 <body>
 
-    <!-- Panel do szybkiej zmiany streamerów na żywo -->
-    <div id="panel">
-        <label>Stream 1:</label>
-        <input type="text" id="streamer1" value="ewroon">
-        <label>Stream 2:</label>
-        <input type="text" id="streamer2" value="xmerghani">
-        <button onclick="updateStreams()">Zmień streamy</button>
-    </div>
-
-    <!-- Tutaj wyświetlą się wideo -->
-    <div id="streams-container">
-        <div class="stream-box" id="box1"></div>
-        <div class="stream-box" id="box2"></div>
+    <div class="stream-container" id="video-box"></div>
+    <div class="chat-container">
+        <iframe id="twitch-chat" src="" allowfullscreen="true"></iframe>
     </div>
 
     <script>
-        function updateStreams() {
-            // Skrypt automatycznie pobiera domenę, na której stoisz (np. twójnick.github.io)
-            var currentDomain = window.location.hostname;
-            
-            var s1 = document.getElementById('streamer1').value.trim();
-            var s2 = document.getElementById('streamer2').value.trim();
-            
-            // Tutaj łączymy adres bezpiecznego odtwarzacza z Twoją domeną
-            // Poniżej wstawiam ;; przed ukośnikami, usuń ;; po skopiowaniu kodu do pliku!
-            var url1 = "https://player.twitch.tv/?channel=" + s1 + "&parent=" + currentDomain;
-            var url2 = "https://player.twitch.tv/?channel=" + s2 + "&parent=" + currentDomain;
-            
-            document.getElementById('box1').innerHTML = '<iframe src="' + url1 + '" allowfullscreen="true"></iframe>';
-            document.getElementById('box2').innerHTML = '<iframe src="' + url2 + '" allowfullscreen="true"></iframe>';
-        }
-
-        // Uruchomienie streamów od razu po wejściu na stronę
-        window.onload = updateStreams;
+        var currentDomain = window.location.hostname;
+        var streamer = "h2p_gucio";
+        var videoUrl = "https://player.twitch.tv/?channel=" + streamer + "&parent=" + currentDomain;
+        var chatUrl = "https://www.twitch.tv/popout/" + streamer + "/chat?popout=";
+        document.getElementById('video-box').innerHTML = '<iframe src="' + videoUrl + '" allowfullscreen="true"></iframe>';
+        document.getElementById('twitch-chat').src = chatUrl;
     </script>
 
 </body>
