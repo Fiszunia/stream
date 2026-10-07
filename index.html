@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mój Ukryty Multistream</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            display: flex;
+            flex-wrap: wrap;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .stream-container {
+            flex: 1 1 50%; /* Dwa streamy obok siebie. Zmień na 100% jeśli wolisz jeden pod drugim */
+            height: 100%;
+            box-sizing: border-box;
+            border: 2px solid #222;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Stream 1 -->
+    <div class="stream-container">
+        <!-- Zamiast 'ewroon' wpisz swój ulubiony kanał -->
+        <iframe 
+            src="https://twitch.tv" 
+            allowfullscreen="true">
+        </iframe>
+    </div>
+
+    <!-- Stream 2 -->
+    <div class="stream-container">
+        <!-- Zamiast 'xmerghani' wpisz swój drugi kanał -->
+        <iframe 
+            src="https://twitch.tv" 
+            allowfullscreen="true">
+        </iframe>
+    </div>
+
+</body>
+</html>
