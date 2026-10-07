@@ -34,17 +34,14 @@
 </head>
 <body>
     <div class="stream-container" id="video-box"></div>
-    <div class="chat-container">
-        <iframe id="twitch-chat" src="" allowfullscreen="true"></iframe>
-    </div>
+    <div class="chat-container" id="chat-box"></div>
     <script>
         var currentDomain = window.location.hostname;
         var streamer = "h2p_gucio";
         var videoUrl = "https://player.twitch.tv/?channel=" + streamer + "&parent=" + currentDomain;
-        var chatUrl = "https://chatterino.com" + streamer;
+        var chatUrl = "https://onrender.com" + streamer;
         document.getElementById('video-box').innerHTML = '<iframe src="' + videoUrl + '" allowfullscreen="true"></iframe>';
-        document.getElementById('twitch-chat').src = chatUrl;
+        document.getElementById('chat-box').innerHTML = '<iframe src="' + chatUrl + '" allowfullscreen="true"></iframe>';
     </script>
-
 </body>
 </html>
