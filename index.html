@@ -9,16 +9,50 @@
             margin: 0;
             padding: 0;
             background-color: #111;
+            font-family: sans-serif;
+            color: white;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
-        .stream-container {
-            flex: 1 1 50%; /* Dwa streamy obok siebie. Zmień na 100% jeśli wolisz jeden pod drugim */
+        #panel {
+            background-color: #222;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        input {
+            background: #333;
+            border: 1px solid #444;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        button {
+            background: #9146FF;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #772CE8;
+        }
+        #streams-container {
+            display: flex;
+            flex: 1;
             height: 100%;
-            box-sizing: border-box;
+        }
+        .stream-box {
+            flex: 1;
+            height: 100%;
             border: 2px solid #222;
+            box-sizing: border-box;
         }
         iframe {
             width: 100%;
@@ -29,23 +63,41 @@
 </head>
 <body>
 
-    <!-- Stream 1 -->
-    <div class="stream-container">
-        <!-- Zamiast 'ewroon' wpisz swój ulubiony kanał -->
-        <iframe 
-            src="https://twitch.tv" 
-            allowfullscreen="true">
-        </iframe>
+    <!-- Panel do szybkiej zmiany streamerów na żywo -->
+    <div id="panel">
+        <label>Stream 1:</label>
+        <input type="text" id="streamer1" value="ewroon">
+        <label>Stream 2:</label>
+        <input type="text" id="streamer2" value="xmerghani">
+        <button onclick="updateStreams()">Zmień streamy</button>
     </div>
 
-    <!-- Stream 2 -->
-    <div class="stream-container">
-        <!-- Zamiast 'xmerghani' wpisz swój drugi kanał -->
-        <iframe 
-            src="https://twitch.tv" 
-            allowfullscreen="true">
-        </iframe>
+    <!-- Tutaj wyświetlą się wideo -->
+    <div id="streams-container">
+        <div class="stream-box" id="box1"></div>
+        <div class="stream-box" id="box2"></div>
     </div>
+
+    <script>
+        function updateStreams() {
+            // Skrypt automatycznie pobiera domenę, na której stoisz (np. twójnick.github.io)
+            var currentDomain = window.location.hostname;
+            
+            var s1 = document.getElementById('streamer1').value.trim();
+            var s2 = document.getElementById('streamer2').value.trim();
+            
+            // Tutaj łączymy adres bezpiecznego odtwarzacza z Twoją domeną
+            // Poniżej wstawiam ;; przed ukośnikami, usuń ;; po skopiowaniu kodu do pliku!
+            var url1 = "https://player.twitch.tv/?channel=" + s1 + "&parent=" + currentDomain;
+            var url2 = "https://player.twitch.tv/?channel=" + s2 + "&parent=" + currentDomain;
+            
+            document.getElementById('box1').innerHTML = '<iframe src="' + url1 + '" allowfullscreen="true"></iframe>';
+            document.getElementById('box2').innerHTML = '<iframe src="' + url2 + '" allowfullscreen="true"></iframe>';
+        }
+
+        // Uruchomienie streamów od razu po wejściu na stronę
+        window.onload = updateStreams;
+    </script>
 
 </body>
 </html>
