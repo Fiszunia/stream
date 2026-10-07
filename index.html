@@ -14,7 +14,7 @@
             overflow: hidden;
         }
         .stream-container {
-            flex: 3; 
+            flex: 3;
             height: 100%;
             box-sizing: border-box;
             border-right: 2px solid #222;
@@ -40,10 +40,9 @@
         var currentDomain = window.location.hostname;
         var streamer = "h2p_gucio";
         var videoUrl = "https://player.twitch.tv/?channel=" + streamer + "&parent=" + currentDomain;
-        var chatUrl = "https://septapus.com" + streamer + "&bgColor=0e0e10&fade=0&hideBots=true";
+        var chatUrl = "https://twitchtheater.tv/embed/chat/?channel=" + streamer + "&theme=dark";
         document.getElementById('video-box').innerHTML = '<iframe src="' + videoUrl + '" allowfullscreen="true"></iframe>';
         document.getElementById('twitch-chat').src = chatUrl;
     </script>
-
 </body>
 </html>
