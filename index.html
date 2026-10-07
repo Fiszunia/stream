@@ -10,43 +10,15 @@
             padding: 0;
             background-color: #0e0e10;
             display: flex;
-            flex-direction: column;
             height: 100vh;
             overflow: hidden;
             font-family: sans-serif;
             color: white;
-        }
-        #panel {
-            background-color: #1f1f23;
-            padding: 10px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 2px solid #2a2a30;
-        }
-        input {
-            background: #2a2a30;
-            border: 1px solid #444;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-        }
-        button {
-            background: #9146FF;
-            border: none;
-            color: white;
-            padding: 6px 18px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background: #772CE8;
+            position: relative;
         }
         #main-container {
             display: flex;
-            flex: 1;
+            width: 100%;
             height: 100%;
         }
         .stream-container {
@@ -65,22 +37,102 @@
             height: 100%;
             border: none;
         }
+        #menu-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(31, 31, 35, 0.85);
+            border: 1px solid #444;
+            color: white;
+            font-size: 20px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            z-index: 9999;
+            transition: background 0.2s;
+        }
+        #menu-toggle:hover {
+            background: #9146FF;
+            border-color: #9146FF;
+        }
+        #settings-modal {
+            display: none;
+            position: absolute;
+            top: 65px;
+            right: 15px;
+            background: #1f1f23;
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            z-index: 9998;
+            flex-direction: column;
+            gap: 12px;
+            width: 250px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-group label {
+            font-size: 13px;
+            color: #adadb8;
+        }
+        input {
+            background: #2a2a30;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input:focus {
+            border-color: #9146FF;
+            outline: none;
+        }
+        #submit-btn {
+            background: #9146FF;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        #submit-btn:hover {
+            background: #772CE8;
+        }
     </style>
 </head>
 <body>
-    <div id="panel">
-        <label>Streamer:</label>
-        <input type="text" id="streamerInput" value="h2p_gucio">
-        <label>Logi użytkownika:</label>
-        <input type="text" id="userInput" value="h2p_gucio">
-        <button onclick="loadContent()">Zastosuj</button>
+    <button id="menu-toggle" onclick="toggleModal()">⚙️</button>
+    <div id="settings-modal">
+        <div class="input-group">
+            <label>Streamer:</label>
+            <input type="text" id="streamerInput" value="h2p_gucio">
+        </div>
+        <div class="input-group">
+            <label>Logi:</label>
+            <input type="text" id="userInput" value="h2p_gucio">
+        </div>
+        <button id="submit-btn" onclick="loadContent()">Ok</button>
     </div>
-
     <div id="main-container">
         <div class="stream-container" id="video-box"></div>
         <div class="chat-container" id="log-box"></div>
     </div>
+
     <script>
+        function toggleModal() {
+            var modal = document.getElementById('settings-modal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
         function loadContent() {
             var currentDomain = window.location.hostname;
             var channel = document.getElementById('streamerInput').value.trim();
@@ -89,6 +141,7 @@
             var logUrl = "https://tv.supa.sh/logs?c=" + channel + "&u=" + user;
             document.getElementById('video-box').innerHTML = '<iframe src="' + videoUrl + '" allowfullscreen="true"></iframe>';
             document.getElementById('log-box').innerHTML = '<iframe src="' + logUrl + '"></iframe>';
+            document.getElementById('settings-modal').style.display = 'none';
         }
         window.onload = loadContent;
     </script>
