@@ -8,62 +8,42 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #111;
+            background-color: #0e0e10;
+            display: flex;
             height: 100vh;
             overflow: hidden;
+            font-family: sans-serif;
         }
-        #video-box {
-            width: 100%;
+        .stream-container {
+            flex: 4;
             height: 100%;
+            box-sizing: border-box;
+            border-right: 2px solid #1f1f23;
+        }
+        .chat-container {
+            flex: 1;
+            height: 100%;
+            background-color: #0e0e10;
         }
         iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-        #trigger-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #9146FF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 9999;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        #trigger-btn:hover {
-            background-color: #772CE8;
-        }
     </style>
 </head>
 <body>
-    <button id="trigger-btn" onclick="openChat()">Chat</button>
-    <div id="video-box"></div>
+    <div class="stream-container" id="video-box"></div>
+    <div class="chat-container">
+        <iframe id="twitch-chat" src="" allowfullscreen="true"></iframe>
+    </div>
     <script>
         var currentDomain = window.location.hostname;
         var streamer = "h2p_gucio";
         var videoUrl = "https://player.twitch.tv/?channel=" + streamer + "&parent=" + currentDomain;
+        var chatUrl = "https://twitchembed.com" + streamer + "&theme=dark&popout=true";
         document.getElementById('video-box').innerHTML = '<iframe src="' + videoUrl + '" allowfullscreen="true"></iframe>';
-        function openChat() {
-            var width = 340;
-            var height = 700;
-            var left = window.screen.width - width;
-            var top = 0;
-            var chatUrl = "https://www.twitch.tv/popout/" + streamer + "/chat";
-            window.open(
-                chatUrl, 
-                "TwitchChat", 
-                "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",menubar=no,toolbar=no,location=no,status=no"
-            );
-        }
-        window.onload = function() {
-            openChat();
-        };
+        document.getElementById('twitch-chat').src = chatUrl;
     </script>
 </body>
 </html>
